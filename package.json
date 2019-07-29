@@ -9,7 +9,7 @@
     "start-server": "nodemon app.js",
     "start-dev": "npm-run-all -p start-server sass-watch",
     "test": "NODE_ENV=test && jest",
-    "heroku-postbuild": "npx sass ./public/resources --no-source-map"
+    "heroku-postbuild": "npx sass ./public/resources --no-source-map --style=compressed"
   },
   "repository": {
     "type": "git",
