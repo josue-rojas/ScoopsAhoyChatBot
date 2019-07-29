@@ -7,6 +7,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 
 // const router = require('./src/router');
+const tokenRoute = require('./routes/token.js');
 // const syncServiceDetails = require('./src/sync_service_details');
 
 // Create Express webapp
@@ -16,6 +17,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Add body parser for Notify device registration
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+app.use('/token', tokenRoute);
 
 // app.use(router);
 
