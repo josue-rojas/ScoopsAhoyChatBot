@@ -15,12 +15,12 @@ $(function() {
 
   // Helper function to print info messages to the chat window
   function print(infoMessage, asHtml) {
-    var $msg = $('<div class="info">');
-    if (asHtml) {
-      $msg.html(infoMessage);
-    } else {
-      $msg.text(infoMessage);
-    }
+    let $msg = document.createElement('div');
+    $msg.setAttribute('class', 'info');
+    if(asHtml) $msg.innerHTML = infoMessage;
+    else $msg.innerText = infoMessage;
+    console.log($msg);
+    // neet to replace for vanilla
     $chatWindow.append($msg);
   }
 
@@ -37,6 +37,10 @@ $(function() {
     $chatWindow.scrollTop($chatWindow[0].scrollHeight);
   }
 
+  // function printMessage(fromUser, message) {
+  //
+  // }
+
   // Alert the user they have been assigned a random username
   print('Logging in...');
 
@@ -52,6 +56,7 @@ $(function() {
     Twilio.Chat.Client.create(data.token).then(client => {
       console.log('Created chat client');
       chatClient = client;
+      console.log('client',client)
       chatClient.getSubscribedChannels().then(createOrJoinGeneralChannel);
 
     // Alert the user they have been assigned a random username

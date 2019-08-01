@@ -1,0 +1,21 @@
+body
+  position: relative
+
+.chat-box-wrapper
+  position: absolute
+  background-color: rgba(0, 0, 0, .4)
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  .chat-box
+    width: 100%
+    display: flex
+    flex-direction: column
+    margin: auto
+    background-color: $main-blue
+    min-height: 100vh
+    +medium-devices
+      width: 75%
+    +large-devices
+      width: 55%
