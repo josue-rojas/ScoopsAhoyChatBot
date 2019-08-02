@@ -105,6 +105,17 @@ const responces = {
   ]
 }
 
+function formatVenues(venuesList) {
+  if(venuesList.length === 0){
+    return 'Did not find any. Try another zip code.'
+  }
+  let output = `Found ${venuesList.length} results:\n\n`;
+  venuesList.forEach((venue) => {
+    output += `${venue.name}\n${venue.location.address} ${venue.location.crossStreet || ''}\n\n`;
+  });
+  return output;
+}
+
 function chatBotResponce(message) {
   let res = responces[message];
   if(res) {
@@ -118,7 +129,8 @@ function chatBotResponce(message) {
     fetch(`/foursquare?zipcode=${zipcode}`)
     .then((data) => data.json())
     .then((results) => {
-      return printMessage('bot', `Found Results ${results.venues.length}`);
+      console.log('venues', results.venues);
+      return printMessage('bot', formatVenues(results.venues));
     })
     .catch((e) => {
       console.error('Error', e);
