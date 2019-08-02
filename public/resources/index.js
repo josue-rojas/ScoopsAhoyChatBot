@@ -30,9 +30,7 @@ function startChat() {
   .then( data => {
     Twilio.Chat.Client.create(data.token)
     .then(client => {
-      console.log('Created chat client');
       chatClient = client;
-      console.log('client', client);
       chatClient.getSubscribedChannels()
       .then(createOrJoinNewChannel)
       username = data.identity;
@@ -43,28 +41,23 @@ function startChat() {
 
 // might be bad to create a bunch of channels everytime it refreshes (should probably save the data and restore it (save data like username and channel name))
 function createOrJoinNewChannel() {
-  console.log('creating new channel');
   chatClient.getChannelByUniqueName(channelName)
   .then((channel) => {
     thisChannel = channel;
-    console.log('Found user\'s unique channel:');
     setupChannel();
   })
   .catch(() => {
     // If it doesn't exist, let's create it
-    console.log('Creating general channel');
     chatClient.createChannel({
       uniqueName: channelName,
       friendlyName: `${username} - unique channel for bot`
     })
     .then((channel) => {
-      console.log('Created new unique channel');
       thisChannel = channel;
       setupChannel();
     })
     .catch((channel) => {
-      console.log('Channel could not be created');
-      console.log(channel);
+      print('Channel could not be created')
     })
   });
 }
@@ -117,9 +110,10 @@ function formatVenues(venuesList) {
 }
 
 function chatBotResponce(message) {
+  message = message.toLowerCase();
   let res = responces[message];
   if(res) {
-    if(typeof res === 'object') return res[Math.floor(Math.random() * res.length)];
+    if(typeof res === 'object')  return printMessage('bot', res[Math.floor(Math.random() * res.length)]);
     return printMessage('bot', res);
   }
   let question = message.toLowerCase().split('is there ice cream in ');
@@ -129,11 +123,9 @@ function chatBotResponce(message) {
     fetch(`/foursquare?zipcode=${zipcode}`)
     .then((data) => data.json())
     .then((results) => {
-      console.log('venues', results.venues);
       return printMessage('bot', formatVenues(results.venues));
     })
     .catch((e) => {
-      console.error('Error', e);
       return printMessage('bot', "Yeah, that's a no.")
     })
   }
