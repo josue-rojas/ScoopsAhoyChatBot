@@ -116,10 +116,12 @@ function chatBotResponce(message) {
     if(typeof res === 'object')  return printMessage('bot', res[Math.floor(Math.random() * res.length)]);
     return printMessage('bot', res);
   }
-  let question = message.toLowerCase().split('is there ice cream in ');
+  let question = message.split('is there ice cream in ');
   // if it match then it should have 2 results in the array
   if(question.length > 1) {
-    let zipcode = question[1];
+    // remove the question mark
+    let zipcode_string = question[1].split('?');
+    let zipcode  = zipcode_string[0];
     fetch(`/foursquare?zipcode=${zipcode}`)
     .then((data) => data.json())
     .then((results) => {
