@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/resources/index.css">
     <title>Scoops Ahoy - ChatBot</title>
   </head>
@@ -28,7 +29,7 @@
         </div>
       </div>
     </section>
-    <section class='chat-box-wrapper'>
+    <section class='chat-box-wrapper' style='display: none'>
       <div class='chat-box'>
         <div id="messages"></div>
         <input id="chat-input" type="text" placeholder="say anything" autofocus/>
@@ -36,7 +37,6 @@
     </section>
     <script src="https://media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.min.js"></script>
     <script src="https://media.twiliocdn.com/sdk/js/chat/v3.0/twilio-chat.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script type="text/javascript" src="/resources/index.vanilla.js"></script>
+    <script type="text/javascript" src="/resources/index.js"></script>
   </body>
 </html>

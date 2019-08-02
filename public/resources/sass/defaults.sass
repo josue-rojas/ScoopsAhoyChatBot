@@ -20,6 +20,11 @@ h3
   +medium-devices
     font-size: 1.5srem
 
+*,
+*::before,
+*::after
+  box-sizing: inherit
+
 .title-theme
   color: $font-main-color
   text-shadow: -1px 0 $border-color, 0 1px $border-color, 1px 0 $border-color, 0 -1px $border-color
@@ -31,6 +36,7 @@ h3
   margin: auto
   background-color: $main-blue
   min-height: 100vh
+  box-sizing: border-box
   +medium-devices
     width: 75%
   +large-devices

@@ -1,21 +1,86 @@
+@import './colors.sass'
+@import './mixins.sass'
+
 body
   position: relative
 
 .chat-box-wrapper
+  box-sizing: border-box
   position: absolute
   background-color: rgba(0, 0, 0, .4)
   top: 0
   left: 0
   width: 100%
   height: 100%
+  display: flex
+  justify-content: center
+  align-items: center
+  opacity: 0
+  transition: opacity 350ms
+  // doesnt work for every browser but it's ok
+  backdrop-filter: blur(3px)
+  -webkit-backdrop-filter: blur(3px)
   .chat-box
-    width: 100%
+    width: 95%
     display: flex
     flex-direction: column
     margin: auto
-    background-color: $main-blue
-    min-height: 100vh
+    background-color: #e3e3e3
+    border-radius: 10px
+    height: 450px
+    overflow: hidden
+    padding: 10px
+    justify-content: space-between
+    position: relative
     +medium-devices
       width: 75%
     +large-devices
       width: 55%
+    #messages
+      max-height: calc(100% - 20px)
+      overflow-y: scroll
+      display: flex
+      flex-direction: column
+      text-align: center
+      .info
+        padding: 8px
+        border-radius: 10px
+        background-color: $light-blue
+        margin: 5px auto
+      .message-container
+        padding: 8px
+        max-width: 50%
+        display: inline-block
+        border-radius: 10px
+        animation-name: messageblow
+        animation-duration: 350ms
+        white-space: nowrap
+        margin-top: 5px
+        margin-bottom: 5px
+        color: white
+        &:not(.me)
+          margin-right: auto
+          border-bottom-left-radius: 0px
+          background-color: $border-color
+        &.me
+          background-color: $main-blue
+          margin-left: auto
+          border-bottom-right-radius: 0px
+  #chat-input
+    font-size: 16px
+    border-radius: 10px
+    padding: 2px
+    -webkit-appearance: none
+    border: 1px solid rgba(0, 0, 0, .3)
+    margin-top: 10px
+
+.chat-box-wrapper.active
+  opacity: 1
+
++keyframes(messageblow)
+  0%
+    max-width: 0%
+    opacity: 0
+  100%
+    max-width: 50%
+    opacity: 1
