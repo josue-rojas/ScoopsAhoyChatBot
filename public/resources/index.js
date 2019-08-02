@@ -129,3 +129,30 @@ $chatButton.addEventListener('click', (event) => {
     isChatActive = true;
   }
 })
+
+
+// carousel scripts
+let image_src = ['/images/image_5.jpg', '/images/image_6.jpg', '/images/image_10.jpg', '/images/image_11.png'];
+
+let current = 0;
+setInterval(()=> {
+  changeImage(current);
+  current = (current+1) % image_src.length;
+}, 4000);
+
+let $image_div = document.querySelector('div.image');
+
+// TODO: need to add transitions
+function changeImage(i) {
+  let image = image_src[i];
+  $image_div.style.backgroundImage = `url(${image})`;
+  current = i;
+}
+
+let $dots = document.querySelectorAll('div.dot');
+$dots.forEach((dot, i) => {
+  dot.addEventListener('click', (event) => {
+    // let image = image_src[i];
+    changeImage(i);
+  });
+})
