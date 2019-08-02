@@ -12,17 +12,13 @@ function print(infoMessage, asHtml) {
   $chatWindow.appendChild($msg);
 }
 
-function printMessage(fromUser, message) {
-  // let $user = document.createElement('span');
-  // $user.classList.add('username');
-  // $user.innerText = `${fromUser} : `;
+function printMessage(fromUser, message) {;
   let $message = document.createElement('span');
   $message.classList.add('message');
   $message.innerText = message;
   let $container = document.createElement('div');
   if(fromUser === username) $container.classList.add( 'me');
   $container.classList.add('message-container');
-  // $container.appendChild($user)
   $container.appendChild($message);
   $chatWindow.appendChild($container);
   $chatWindow.scrollTo(0, $chatWindow.scrollHeight);
@@ -52,7 +48,6 @@ function createOrJoinNewChannel() {
   .then((channel) => {
     thisChannel = channel;
     console.log('Found user\'s unique channel:');
-    console.log(generalChannel);
     setupChannel();
   })
   .catch(() => {
@@ -83,6 +78,10 @@ function setupChannel() {
   // Listen for new messages sent to the channel
   thisChannel.on('messageAdded', function(message) {
     printMessage(message.author, message.body);
+    // add a delay for responce so it seems more genuine
+    setTimeout(() => {
+      chatBotResponce(message.body);
+    }, Math.random() * 1200);
   });
 }
 
@@ -97,6 +96,49 @@ input.addEventListener('keydown', (event) =>{
     input.value = '';
   }
 })
+const responces = {
+  "scoops ahoy": "Scoops ahoy!",
+  "where are you located/found?": "Starcourt mall, Hawkins Indiana",
+  "what do you think about kids?": [
+    "Turns out I'm a pretty damn good babysitter.",
+    "Man, kids are the worst! Who needs 'em, anyway?"
+  ]
+}
+
+function formatVenues(venuesList) {
+  if(venuesList.length === 0){
+    return 'Did not find any. Try another zip code.'
+  }
+  let output = `Found ${venuesList.length} results:\n\n`;
+  venuesList.forEach((venue) => {
+    output += `${venue.name}\n${venue.location.address} ${venue.location.crossStreet || ''}\n\n`;
+  });
+  return output;
+}
+
+function chatBotResponce(message) {
+  let res = responces[message];
+  if(res) {
+    if(typeof res === 'object') return res[Math.floor(Math.random() * res.length)];
+    return printMessage('bot', res);
+  }
+  let question = message.toLowerCase().split('is there ice cream in ');
+  // if it match then it should have 2 results in the array
+  if(question.length > 1) {
+    let zipcode = question[1];
+    fetch(`/foursquare?zipcode=${zipcode}`)
+    .then((data) => data.json())
+    .then((results) => {
+      console.log('venues', results.venues);
+      return printMessage('bot', formatVenues(results.venues));
+    })
+    .catch((e) => {
+      console.error('Error', e);
+      return printMessage('bot', "Yeah, that's a no.")
+    })
+  }
+  else return printMessage('bot', "Yeah, that's a no.")
+}
 
 // hide chat
 let $wholeChat = document.querySelector('section.chat-box-wrapper');
@@ -114,6 +156,7 @@ $wholeChat.addEventListener('click', (event) => {
   }
 })
 
+// show chat
 let $chatButton = document.querySelector('div.chat-button');
 $chatButton.addEventListener('click', (event) => {
   if(!isChatActive) {
@@ -152,7 +195,6 @@ function changeImage(i) {
 let $dots = document.querySelectorAll('div.dot');
 $dots.forEach((dot, i) => {
   dot.addEventListener('click', (event) => {
-    // let image = image_src[i];
     changeImage(i);
   });
 })

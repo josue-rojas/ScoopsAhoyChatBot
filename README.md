@@ -8,3 +8,4 @@ Tech used
 - Twilio API
 - SASS
 - Postgres
+- FourSquare Places API
