@@ -2,11 +2,12 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/resources/index.css">
     <title>Scoops Ahoy - ChatBot</title>
   </head>
   <body>
-    <div class='main'>
+    <section class='main'>
       <header>
         <h1 class='title-theme'>SCOOPS AHOY</h1>
         <h3 class='title-theme'>ICE CREAM PARLOR</h3>
@@ -23,35 +24,19 @@
             <div class='dot'></div>
           </div>
         </div>
+        <div class='chat-button'>
+          ?
+        </div>
       </div>
-    </div>
-    <!-- <header>
-      <h1 class='title-theme'>SCOOPS AHOY</h1>
-      <h3 class='title-theme'>ICE CREAM PARLOR</h3>
-    </header> -->
-    <!-- <div id='carousel'>
-      <div class='scrollable-horizontal'>
-        <div class='image-slide'>
-          <div class='image-wrapper'>
-          </div>
-          <div class='image-text'>
-            <h2 class='title-theme'>Butter Peacan Ice Cream</h2>
-            <p>An American classic, revisited with our passion for singular flavor. We blend spoonful after spoonful of buttery roasted pecans with pure, sweet cream to create a delight like no other.</p>
-          </div>
-        </div>
-        <div class='dots-wrapper'>
-          <div class='dots'>
-            <div class='dot'></div>
-            <div class='dot'></div>
-            <div class='dot'></div>
-            <div class='dot'></div>
-          </div>
-        </div>
-    </div>
-  </div> -->
+    </section>
+    <section class='chat-box-wrapper' style='display: none'>
+      <div class='chat-box'>
+        <div id="messages"></div>
+        <input id="chat-input" type="text" placeholder="say anything" autofocus/>
+      </div>
+    </section>
     <script src="https://media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.min.js"></script>
     <script src="https://media.twiliocdn.com/sdk/js/chat/v3.0/twilio-chat.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src="/resources/index.js"></script>
   </body>
 </html>
