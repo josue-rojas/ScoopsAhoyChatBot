@@ -8,6 +8,8 @@ const bodyParser = require('body-parser');
 
 // const router = require('./src/router');
 const tokenRoute = require('./routes/token.js');
+const foursquareRoute = require('./routes/foursquare.js');
+
 // const syncServiceDetails = require('./src/sync_service_details');
 
 // Create Express webapp
@@ -19,6 +21,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 app.use('/token', tokenRoute);
+app.use('/foursquare', foursquareRoute);
 
 // app.use(router);
 

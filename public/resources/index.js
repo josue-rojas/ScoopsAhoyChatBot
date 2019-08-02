@@ -156,3 +156,6 @@ $dots.forEach((dot, i) => {
     changeImage(i);
   });
 })
+
+// fetch('/foursquare?zipcode=10002')
+// .then((data) => console.log(data.json()));
