@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "sass-build": "npx sass ./public/resources --no-source-map --style=compressed",
-    "sass-watch": "sass-build; npx sass --watch --style=compressed --no-source-map ./public/resources",
+    "sass-watch": "npm run sass-build; npx sass --watch --style=compressed --no-source-map ./public/resources",
     "start": "node app.js",
     "start-server": "nodemon app.js",
     "start-dev": "npm-run-all -p start-server sass-watch",
     "test": "NODE_ENV=test && jest",
-    "heroku-postbuild": "sass-build"
+    "heroku-postbuild": "npm run sass-build"
   },
   "repository": {
     "type": "git",
